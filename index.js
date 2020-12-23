@@ -32,7 +32,7 @@ buttonLoadTextData.addEventListener('click', function(){
     
     urlEditField.value = joinUrlStrings;
 })
-
+ 
 console.log(location);
 
 function showUrlParamsList(urlParamsList){
