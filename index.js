@@ -10,33 +10,55 @@ let urlList = [
   'https://itrack.ru/portfolio/website/miratorg/',
 ];
 
+let buttonRunUrlPars = document.querySelector('#buttonRunUrlPars'),
+    urlEditField = document.querySelector('#urlEditField');
+
+buttonRunUrlPars.addEventListener('click', function(){
+    let urlListFromTextArea = urlEditField.value.replace(/\r\n/g,"\n").split("\n");
+
+    showUrlParamsList(getUrlParamsList(urlListFromTextArea))
+})
 
 showUrlParamsList(getUrlParamsList(urlList))
 
+
+
 function showUrlParamsList(urlParamsList){
-    let outputContainer = document.querySelector('#urlParamBlick');
+    let outputContainer = document.querySelector('#urlParamBlock');
+
+    // Очищаем содержимое блока с выводом
+    outputContainer.innerHTML = '';
 
     // Перебор адресов из списка адресов с параметров
     for (url in urlParamsList){
         let row = addElementOnPage(outputContainer,'div', 'row');
 
         if (typeof urlParamsList[url] !== 'string'){
-            addElementOnPage(row, 'div', 'cell', url);
+            addElementOnPage(row, 'div', 'url', url);
+
+            let blockParametrs = addElementOnPage(row, 'div', 'parametr');
+            addElementOnPage(blockParametrs, 'div', 'parametr__cell parametr__header', 'Параметры страницы');
+            addElementOnPage(blockParametrs, 'div', 'parametr__cell parametr__header', 'Сматрченые значения');
 
             // Перебор типов параметров страцицы
             for (paramTypeName in urlParamsList[url]) {
+                let blockParametrs = addElementOnPage(row, 'div', 'parametr');
 
                 // Перебор значений типа параметра
                 for (paramTypeValue in urlParamsList[url][paramTypeName]){
                     let machedString = urlParamsList[url][paramTypeName][paramTypeValue];
-
-                    addElementOnPage(row, 'div', 'cell', paramTypeValue);
-                    addElementOnPage(row, 'div', 'cell', machedString);
+                    
+                    addElementOnPage(blockParametrs, 'div', 'parametr__cell', paramTypeValue);
+                    addElementOnPage(blockParametrs, 'div', 'parametr__cell', machedString);
                 }
             }
-        } else {
-            addElementOnPage(row, 'div', 'cell', url);
-            addElementOnPage(row, 'div', 'cell', urlParamsList[url]);
+        } else {  // Вывод блока для невалидного url
+            addElementOnPage(row, 'div', 'url', url);
+            
+            let blockParametrs = addElementOnPage(row, 'div', 'parametr');
+            
+            addElementOnPage(blockParametrs, 'div', 'parametr__cell', urlParamsList[url]);
+            addElementOnPage(blockParametrs, 'div', 'parametr__cell', urlParamsList[url]);
         }
     }
 
@@ -49,7 +71,7 @@ function showUrlParamsList(urlParamsList){
 
             if (typeof(innerData) === 'string'){ node.innerHTML = innerData }
 
-            // Вставиь прооверку "является ли parentNode дом узлом"
+            // Вставиь проверку "является ли parentNode дом узлом"
             parentNode.appendChild(node);
 
             return node;
@@ -66,7 +88,7 @@ function getUrlParamsList(urlsArray){
     let resaultList = {},
         regExpParamTypesList = {
         'type': {
-                    'index': /(?:(\/vnedrenie-crm\/)|(\/website\/))$/,
+                    'index': /(?:(.*\/vnedrenie-crm\/)|(.*\/website\/))$/,
                     'filter': /.*(\/filter\/).*/,
                     'project': /(?:\/vnedrenie-crm|\/website)(\/[^\/]*\/)$/,
                     'nextPage': /\?PAGEN_1=(\d{1,3})/,

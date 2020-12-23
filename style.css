@@ -1,0 +1,61 @@
+#urlParamBlick {
+
+}
+
+.wrapper {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#urlEditField {
+  width: 100%;
+}
+
+#buttonRunUrlPars {
+  display: block;
+  padding: 5px;
+  margin: 10px auto 0 auto;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.url {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 25px;
+  padding: 5px;
+
+  border: 1px solid black;
+  border-bottom: 0px;
+  background-color: darkseagreen;
+}
+
+.parametr {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  border: 1px solid black;
+  background-color: beige;
+}
+
+.parametr__header {
+  background-color: darkseagreen;
+}
+
+.parametr__cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  padding: 5px;
+}
+            
+.parametr__cell + .parametr__cell  {
+  border-left: 1px solid black;
+}
