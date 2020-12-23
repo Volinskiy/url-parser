@@ -21,7 +21,7 @@ buttonRunUrlPars.addEventListener('click', function(){
     showUrlParamsList(getUrlParamsList(urlListFromTextArea))
 })
 
-// Загрузка тестовы данных в текстовое поле
+// Загрузка тестовых данных в текстовое поле
 buttonLoadTextData.addEventListener('click', function(){
     let joinUrlStrings = '';
     
@@ -32,9 +32,8 @@ buttonLoadTextData.addEventListener('click', function(){
     
     urlEditField.value = joinUrlStrings;
 })
-  
-console.log(location);
 
+// Вывод результата парсинга переданного массива url адресов
 function showUrlParamsList(urlParamsList){
     let outputContainer = document.querySelector('#urlParamBlock');
 
@@ -97,9 +96,11 @@ function showUrlParamsList(urlParamsList){
 
 }
 
+// Парсинг переданного массива url адресов
 function getUrlParamsList(urlsArray){
     
     let resaultList = {},
+        // Параметры страниц и соответствующие им регулярные выражения
         regExpParamTypesList = {
         'type': {
                     'index': /(?:(.*\/vnedrenie-crm\/)|(.*\/website\/))$/,
@@ -158,4 +159,3 @@ function getUrlParamsList(urlsArray){
         return result;
     }
 }
-
