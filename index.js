@@ -11,17 +11,29 @@ let urlList = [
 ];
 
 let buttonRunUrlPars = document.querySelector('#buttonRunUrlPars'),
+    buttonLoadTextData = document.querySelector('#buttonLoadTextData'),
     urlEditField = document.querySelector('#urlEditField');
 
+// Вывод результата парсинга url адресов
 buttonRunUrlPars.addEventListener('click', function(){
     let urlListFromTextArea = urlEditField.value.replace(/\r\n/g,"\n").split("\n");
-
+    
     showUrlParamsList(getUrlParamsList(urlListFromTextArea))
 })
 
-showUrlParamsList(getUrlParamsList(urlList))
+// Загрузка тестовы данных в текстовое поле
+buttonLoadTextData.addEventListener('click', function(){
+    let joinUrlStrings = '';
+    
+    urlList.forEach(function(urlElemnt, index, array){
+        joinUrlStrings += urlElemnt;
+        joinUrlStrings += (index < (array.length - 1)) ? '\n': '';
+    })
+    
+    urlEditField.value = joinUrlStrings;
+})
 
-
+console.log(location);
 
 function showUrlParamsList(urlParamsList){
     let outputContainer = document.querySelector('#urlParamBlock');
@@ -38,7 +50,7 @@ function showUrlParamsList(urlParamsList){
 
             let blockParametrs = addElementOnPage(row, 'div', 'parametr');
             addElementOnPage(blockParametrs, 'div', 'parametr__cell parametr__header', 'Параметры страницы');
-            addElementOnPage(blockParametrs, 'div', 'parametr__cell parametr__header', 'Сматрченые значения');
+            addElementOnPage(blockParametrs, 'div', 'parametr__cell parametr__header', 'Сматченые значения');
 
             // Перебор типов параметров страцицы
             for (paramTypeName in urlParamsList[url]) {
@@ -46,9 +58,11 @@ function showUrlParamsList(urlParamsList){
 
                 // Перебор значений типа параметра
                 for (paramTypeValue in urlParamsList[url][paramTypeName]){
-                    let machedString = urlParamsList[url][paramTypeName][paramTypeValue];
-                    
-                    addElementOnPage(blockParametrs, 'div', 'parametr__cell', paramTypeValue);
+                    let machedString = urlParamsList[url][paramTypeName][paramTypeValue],
+                        parametrDescription = paramTypeName + ': ' + paramTypeValue;
+
+
+                    addElementOnPage(blockParametrs, 'div', 'parametr__cell', parametrDescription);
                     addElementOnPage(blockParametrs, 'div', 'parametr__cell', machedString);
                 }
             }
