@@ -1,3 +1,4 @@
+
 let urlList = [
   'www sss',
   'https://itrack.ru/portfolio/website/',
@@ -37,41 +38,40 @@ buttonLoadTextData.addEventListener('click', function(){
 function showUrlParamsList(urlParamsList){
     let outputContainer = document.querySelector('#urlParamBlock');
 
-    // Очищаем содержимое блока с выводом
+    // Очищаем содержимое блока вывода
     outputContainer.innerHTML = '';
 
-    // Перебор адресов из списка адресов с параметров
+    // Перебор адресов переданного списка адресов
     for (url in urlParamsList){
-        let row = addElementOnPage(outputContainer,'div', 'row');
+        let row = addElementOnPage(outputContainer,'div', 'url-parametrs-block');
 
         if (typeof urlParamsList[url] !== 'string'){
-            addElementOnPage(row, 'div', 'url', url);
+            addElementOnPage(row, 'div', 'url-parametrs-block__url', url);
 
-            let blockParametrs = addElementOnPage(row, 'div', 'parametr');
-            addElementOnPage(blockParametrs, 'div', 'parametr__cell parametr__header', 'Параметры страницы');
-            addElementOnPage(blockParametrs, 'div', 'parametr__cell parametr__header', 'Сматченые значения');
+            let blockParametrs = addElementOnPage(row, 'div', 'url-parametrs-block__parametr');
+            addElementOnPage(blockParametrs, 'div', 'url-parametrs-block__cell url-parametrs-block__cell--header', 'Параметры страницы');
+            addElementOnPage(blockParametrs, 'div', 'url-parametrs-block__cell url-parametrs-block__cell--header', 'Сматченые значения');
 
             // Перебор типов параметров страцицы
             for (paramTypeName in urlParamsList[url]) {
-                let blockParametrs = addElementOnPage(row, 'div', 'parametr');
+                let blockParametrs = addElementOnPage(row, 'div', 'url-parametrs-block__parametr');
 
                 // Перебор значений типа параметра
                 for (paramTypeValue in urlParamsList[url][paramTypeName]){
                     let machedString = urlParamsList[url][paramTypeName][paramTypeValue],
                         parametrDescription = paramTypeName + ': ' + paramTypeValue;
 
-
-                    addElementOnPage(blockParametrs, 'div', 'parametr__cell', parametrDescription);
-                    addElementOnPage(blockParametrs, 'div', 'parametr__cell', machedString);
+                    addElementOnPage(blockParametrs, 'div', 'url-parametrs-block__cell', parametrDescription);
+                    addElementOnPage(blockParametrs, 'div', 'url-parametrs-block__cell', machedString);
                 }
             }
         } else {  // Вывод блока для невалидного url
-            addElementOnPage(row, 'div', 'url', url);
+            addElementOnPage(row, 'div', 'url-parametrs-block__url', url);
             
-            let blockParametrs = addElementOnPage(row, 'div', 'parametr');
+            let blockParametrs = addElementOnPage(row, 'div', 'url-parametrs-block__parametr');
             
-            addElementOnPage(blockParametrs, 'div', 'parametr__cell', urlParamsList[url]);
-            addElementOnPage(blockParametrs, 'div', 'parametr__cell', urlParamsList[url]);
+            addElementOnPage(blockParametrs, 'div', 'url-parametrs-block__cell', urlParamsList[url]);
+            addElementOnPage(blockParametrs, 'div', 'url-parametrs-block__cell', urlParamsList[url]);
         }
     }
 
@@ -99,7 +99,7 @@ function showUrlParamsList(urlParamsList){
 // Парсинг переданного массива url адресов
 function getUrlParamsList(urlsArray){
     
-    let resaultList = {},
+    let resultList = {},
         // Параметры страниц и соответствующие им регулярные выражения
         regExpParamTypesList = {
         'type': {
@@ -123,14 +123,14 @@ function getUrlParamsList(urlsArray){
     
     for (const url of urlsArray) {
         if (isUrl(url)){
-            resaultList[url] = getMachedParams(url ,regExpParamTypesList);
+            resultList[url] = getMachedParams(url ,regExpParamTypesList);
         }
         else {
-            resaultList[url] = 'Невалидный URL'
+            resultList[url] = 'Невалидный URL'
         }
     }
 
-    return resaultList;
+    return resultList;
 
     
     function isUrl(stringURL) {
@@ -147,10 +147,10 @@ function getUrlParamsList(urlsArray){
             // Перебор регулярных выражений значений для типов страниц
             for (const paramItem in regExpList[urlParamType]) {
                 // Если значение не сматчено, то вернёт null
-                let matchingResault = url.match(regExpList[urlParamType][paramItem]);
+                let matchingResult = url.match(regExpList[urlParamType][paramItem]);
             
-                if(matchingResault){
-                    matchedRegExpGroupsForType[paramItem] = matchingResault[1] || matchingResault[2];
+                if(matchingResult){
+                    matchedRegExpGroupsForType[paramItem] = matchingResult[1] || matchingResult[2];
                     result[urlParamType] = matchedRegExpGroupsForType;
                 }
             }

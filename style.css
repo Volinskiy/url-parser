@@ -5,7 +5,7 @@
   margin-right: auto;
 }
 
-#urlEditField {
+.url-edit-field {
   width: 100%;
 }
 
@@ -15,44 +15,50 @@ button {
   margin: 10px auto 0 auto;
 }
 
-.row {
+.url-parametrs-block {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 25px;
+  border: 1px solid black;
 }
 
-.url {
+.url-parametrs-block__url {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: 25px;
   padding: 5px;
 
-  border: 1px solid black;
   border-bottom: 0px;
   background-color: darkseagreen;
 }
 
-.parametr {
+.url-parametrs-block__parametr {
   display: flex;
   flex-direction: row;
   width: 100%;
-  border: 1px solid black;
+  border-top: 1px solid black;
   background-color: beige;
 }
 
-.parametr__header {
-  background-color: darkseagreen;
-}
 
-.parametr__cell {
+.url-parametrs-block__cell {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 50%;
   padding: 5px;
 }
+
+.url-parametrs-block__cell:hover {
+  background-color: aqua;
+  
+}
+
+.url-parametrs-block__cell--header {
+  background-color: darkseagreen;
+}
             
-.parametr__cell + .parametr__cell  {
+.url-parametrs-block__cell + .url-parametrs-block__cell  {
   border-left: 1px solid black;
 }
