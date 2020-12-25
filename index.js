@@ -75,7 +75,7 @@ function showUrlParamsList(urlParamsList){
         }
     }
 
-    // Функция создание node-элемента и добавление в блок
+    // Функция создания node-элемента и добавления его в блок
     function addElementOnPage(parentNode, tagName, attrClass, innerData){
         if (typeof(tagName) === 'string'){
             let node = document.createElement(tagName);
